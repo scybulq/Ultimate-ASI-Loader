@@ -43,7 +43,7 @@ permissions:
 
 jobs:
   build:
-    runs-on: windows-2025-vs2026
+    runs-on: windows-2022
 
     steps:
     - name: Checkout Repository
@@ -55,7 +55,7 @@ jobs:
       uses: microsoft/setup-msbuild@main
 
     - name: Auto Increment Version
-      uses: MCKanpolat/auto-semver-action@v2
+      uses: MCKanpolat/auto-semver-action@1.0.12
       id: versioning
       with:
         releaseType: ${{ env.VERINC }} 
@@ -63,12 +63,12 @@ jobs:
         github_token: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Configure build
-      run: ./premake5 vs2026 --with-version=${{ steps.versioning.outputs.version }}
+      run: ./premake5 vs2022 --with-version=9.7.1
 
     - name: Build
       run: |
-        msbuild -m build/Ultimate-ASI-Loader-x64.slnx /property:Configuration=Release /property:Platform=x64
-        msbuild -m build/Ultimate-ASI-Loader-Win32.slnx /property:Configuration=Release /property:Platform=Win32
+        msbuild -m build/Ultimate-ASI-Loader-x64.sln /property:Configuration=Release /property:Platform=x64
+        msbuild -m build/Ultimate-ASI-Loader-Win32.sln /property:Configuration=Release /property:Platform=Win32
 
     - name: Pack binaries
       run: |

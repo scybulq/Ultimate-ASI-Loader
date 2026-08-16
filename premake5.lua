@@ -44,6 +44,7 @@ workspace "Ultimate-ASI-Loader-Win32"
    end
 
    local productVersion = major .. "." .. minor .. "." .. build .. "." .. revision
+   productVersion = productVersion .. "-win7"
    if githash ~= "" then
       productVersion = productVersion .. "-" .. githash
    end
